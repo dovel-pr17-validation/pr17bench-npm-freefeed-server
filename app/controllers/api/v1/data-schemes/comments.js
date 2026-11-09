@@ -1,0 +1,64 @@
+import definitions from './definitions';
+
+export const commentCreateInputSchema = {
+  $schema: 'http://json-schema.org/schema#',
+
+  definitions,
+
+  type: 'object',
+  required: ['comment'],
+  properties: {
+    comment: {
+      type: 'object',
+      required: ['body', 'postId'],
+      properties: {
+        body: {
+          type: 'string',
+          minLength: 1,
+          pattern: '\\S',
+        },
+        postId: { $ref: '#/definitions/uuid' },
+      },
+    },
+  },
+};
+
+export const commentUpdateInputSchema = {
+  $schema: 'http://json-schema.org/schema#',
+
+  definitions,
+
+  type: 'object',
+  required: ['comment'],
+  properties: {
+    comment: {
+      type: 'object',
+      required: ['body'],
+      properties: {
+        body: {
+          type: 'string',
+          minLength: 1,
+          pattern: '\\S',
+        },
+      },
+    },
+  },
+};
+
+export const getCommentsByIdsInputSchema = {
+  $schema: 'http://json-schema.org/schema#',
+
+  definitions,
+
+  type: 'object',
+  required: ['commentIds'],
+
+  properties: {
+    commentIds: {
+      type: 'array',
+      items: { $ref: '#/definitions/uuid' },
+      uniqueItems: true,
+      default: [],
+    },
+  },
+};
